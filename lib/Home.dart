@@ -17,7 +17,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
   final List<Widget> _widgetOptions = <Widget>[
     const RestaurantListPage(),
     const BookmarkPage(),
-    const SettingsPage()
+    const SettingsPage(),
+    const RestaurantSearchPage(),
   ];
 
   void _onItemTapped(int index) {
