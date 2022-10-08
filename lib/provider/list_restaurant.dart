@@ -7,9 +7,9 @@ import 'package:projek2/Apiresto.dart';
 enum ResultState { loading, noData, hasData, error }
 
 class RestaurantProvider extends ChangeNotifier {
-  final ApiService apiService;
+  final Service service;
 
-  RestaurantProvider({required this.apiService}) {
+  RestaurantProvider({required this.service}) {
     _fetchAllRestaurant();
   }
 
@@ -27,7 +27,7 @@ class RestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final article = await apiService.RestaurantList();
+      final article = await service.RestaurantList();
       if (article.restaurants.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();
@@ -37,6 +37,10 @@ class RestaurantProvider extends ChangeNotifier {
         notifyListeners();
         return _restaurantResult = article;
       }
+    } on SocketException {
+      _state = ResultState.error;
+      notifyListeners();
+      return _message = "No internet connection";
     } catch (e) {
       _state = ResultState.error;
       notifyListeners();

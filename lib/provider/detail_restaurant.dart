@@ -10,14 +10,14 @@ import 'package:projek2/provider/list_restaurant.dart';
 enum ResultState { loading, error, noData, hasData }
 
 class DetailRestaurantProvider extends ChangeNotifier {
-  final ApiService apiService;
+  final Service service;
   final String id;
 
   late DetailRestaurantResult _detailRestaurant;
   late ResultState _state;
   String _message = '';
 
-  DetailRestaurantProvider({required this.id, required this.apiService}) {
+  DetailRestaurantProvider({required this.id, required this.service}) {
     getDetailRestaurant(id);
   }
 
@@ -29,7 +29,7 @@ class DetailRestaurantProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final detailRestaurant = await apiService.getDetailId(id);
+      final detailRestaurant = await service.getDetailId(id);
       if (detailRestaurant.error) {
         _state = ResultState.noData;
         notifyListeners();

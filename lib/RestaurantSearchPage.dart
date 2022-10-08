@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import 'package:projek2/Apiresto.dart';
 import 'package:projek2/widget_Search_resto.dart';
 import 'package:projek2/provider/search_restaurant.dart';
+import 'package:projek2/provider/list_restaurant.dart';
 
 class RestaurantSearchPage extends StatefulWidget {
   const RestaurantSearchPage({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class _RestaurantSearchPageState extends State<RestaurantSearchPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SearchRestaurantProvider>(
-      create: (_) => SearchRestaurantProvider(apiService: ApiService()),
+      create: (_) => SearchRestaurantProvider(service: Service(Client())),
       child: Consumer<SearchRestaurantProvider>(builder: (context, state, _) {
         return Scaffold(
           backgroundColor: Colors.grey.shade100,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:projek2/Apiresto.dart';
 import 'package:projek2/provider/list_restaurant.dart';
@@ -11,7 +12,7 @@ class RestaurantListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantProvider>(
-      create: (_) => RestaurantProvider(apiService: ApiService()),
+      create: (_) => RestaurantProvider(service: Service(Client())),
       child: Consumer<RestaurantProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {

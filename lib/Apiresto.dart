@@ -4,35 +4,37 @@ import 'package:projek2/model/resto_list.dart';
 import 'package:projek2/model/resto_detail.dart';
 import 'package:projek2/model/resto_search.dart';
 
-class ApiService {
+class Service {
+  final http.Client client;
+
+  Service(this.client);
+
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev/';
-  static const String baseUrlImage = '${_baseUrl}images/medium/';
 
   Future<RestaurantResult> RestaurantList() async {
-    final response = await http.get(Uri.parse('${_baseUrl}list'));
+    final response = await client.get(Uri.parse('${_baseUrl}list'));
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed');
+      throw Exception('failed to load');
     }
   }
 
   Future<DetailRestaurantResult> getDetailId(String id) async {
-    final response = await http
-        .get(Uri.parse('https://restaurant-api.dicoding.dev/detail/$id'));
+    final response = await client.get(Uri.parse('${_baseUrl}detail/$id'));
     if (response.statusCode == 200) {
       return DetailRestaurantResult.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed');
+      throw Exception('failed to load');
     }
   }
 
   Future<SearchRestaurantResult> getTextField(String query) async {
-    final response = await http.get(Uri.parse('${_baseUrl}search?q=$query'));
+    final response = await client.get(Uri.parse('${_baseUrl}search?q=$query'));
     if (response.statusCode == 200) {
       return SearchRestaurantResult.fromJson(json.decode(response.body));
     } else {
-      throw Exception('failed');
+      throw Exception('failed to load');
     }
   }
 }

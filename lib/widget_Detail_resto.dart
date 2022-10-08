@@ -27,9 +27,16 @@ class RestaurantDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    restaurant.name,
-                    style: TextStyle(fontSize: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          restaurant.name,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                      Icon(Icons.favorite)
+                    ],
                   ),
                   Row(
                     children: [Icon(Icons.location_pin), Text(restaurant.city)],

@@ -2,13 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:projek2/Apiresto.dart';
 import 'package:projek2/model/resto_search.dart';
-
-enum ResultState { loading, error, noData, hasData }
+import 'package:projek2/provider/list_restaurant.dart';
 
 class SearchRestaurantProvider extends ChangeNotifier {
-  final ApiService apiService;
+  final Service service;
 
-  SearchRestaurantProvider({required this.apiService}) {
+  SearchRestaurantProvider({required this.service}) {
     fetchAllRestaurant(search);
   }
 
@@ -31,7 +30,7 @@ class SearchRestaurantProvider extends ChangeNotifier {
         _state = ResultState.loading;
         _search = search;
         notifyListeners();
-        final restaurant = await apiService.getTextField(search);
+        final restaurant = await service.getTextField(search);
         if (restaurant.restaurants.isEmpty) {
           _state = ResultState.noData;
           notifyListeners();

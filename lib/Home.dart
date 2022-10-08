@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projek2/RestaurantSearchPage.dart';
 import 'package:projek2/RestaurantListPage.dart';
+import 'package:projek2/bookmarkPage.dart';
+import 'package:projek2/settingPage.dart';
 
 class RestaurantHomePage extends StatefulWidget {
   const RestaurantHomePage({Key? key}) : super(key: key);
@@ -14,7 +16,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const RestaurantListPage(),
-    const RestaurantSearchPage(),
+    const BookmarkPage(),
+    const SettingsPage()
   ];
 
   void _onItemTapped(int index) {
@@ -41,7 +44,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
     return BottomNavigationBar(
       items: const [
         BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-        BottomNavigationBarItem(label: 'Search', icon: Icon(Icons.search))
+        BottomNavigationBarItem(label: 'favorite', icon: Icon(Icons.favorite)),
+        BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings))
       ],
       onTap: (index) {
         _onItemTapped(index);

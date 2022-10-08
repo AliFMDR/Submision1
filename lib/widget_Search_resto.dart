@@ -10,11 +10,6 @@ class CardSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return RestaurantDetailPage(idResto: restaurant.id);
-          }));
-        },
         child: Card(
             child: ListTile(
                 contentPadding:
@@ -28,11 +23,6 @@ class CardSearch extends StatelessWidget {
                 subtitle: Row(children: [
                   Icon(Icons.location_pin),
                   Text(restaurant.city)
-                ]),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return RestaurantDetailPage(idResto: restaurant.id);
-                  }));
-                })));
+                ]))));
   }
 }
