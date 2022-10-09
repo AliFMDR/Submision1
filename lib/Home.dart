@@ -17,7 +17,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
   final List<Widget> _widgetOptions = <Widget>[
     const RestaurantListPage(),
     const BookmarkPage(),
-    const SettingsPage()
+    const SettingsPage(),
+    const RestaurantSearchPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -45,7 +46,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
       items: const [
         BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
         BottomNavigationBarItem(label: 'favorite', icon: Icon(Icons.favorite)),
-        BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings))
+        BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings)),
+        BottomNavigationBarItem(label: 'Search', icon: Icon(Icons.search))
       ],
       onTap: (index) {
         _onItemTapped(index);
