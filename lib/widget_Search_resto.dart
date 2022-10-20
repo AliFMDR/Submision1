@@ -12,17 +12,21 @@ class CardSearch extends StatelessWidget {
     return InkWell(
         child: Card(
             child: ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                leading: Image.network(
-                  "https://restaurant-api.dicoding.dev/images/large/" +
-                      restaurant.pictureId,
-                  width: 100,
-                ),
-                title: Text(restaurant.name),
-                subtitle: Row(children: [
-                  Icon(Icons.location_pin),
-                  Text(restaurant.city)
-                ]))));
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      leading: Image.network(
+        "https://restaurant-api.dicoding.dev/images/large/" +
+            restaurant.pictureId,
+        width: 100,
+      ),
+      title: Text(restaurant.name),
+      subtitle:
+          Row(children: [Icon(Icons.location_pin), Text(restaurant.city)]),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return RestaurantDetailPage(restaurant: restaurant.id);
+        }));
+      },
+    )));
   }
 }
