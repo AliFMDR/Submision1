@@ -35,7 +35,7 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
         backgroundColor: Color.fromARGB(255, 104, 165, 252),
         title: Text('Restaurant'),
       ),
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Color.fromRGBO(249, 247, 247, 1),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -44,10 +44,30 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       items: const [
-        BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-        BottomNavigationBarItem(label: 'favorite', icon: Icon(Icons.favorite)),
-        BottomNavigationBarItem(label: 'Settings', icon: Icon(Icons.settings)),
-        BottomNavigationBarItem(label: 'Search', icon: Icon(Icons.search))
+        BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(
+              Icons.home,
+              color: Colors.black,
+            )),
+        BottomNavigationBarItem(
+            label: 'favorite',
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.black,
+            )),
+        BottomNavigationBarItem(
+            label: 'Settings',
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black,
+            )),
+        BottomNavigationBarItem(
+            label: 'Search',
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ))
       ],
       onTap: (index) {
         _onItemTapped(index);
@@ -55,3 +75,4 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
     );
   }
 }
+
