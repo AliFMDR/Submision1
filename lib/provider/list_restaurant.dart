@@ -14,7 +14,7 @@ class RestaurantProvider extends ChangeNotifier {
   }
 
   late RestaurantResult _restaurantResult;
-  late ResultState _state;
+  ResultState _state = ResultState.loading;
   String _message = '';
 
   String get message => _message;
