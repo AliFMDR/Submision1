@@ -14,7 +14,7 @@ class DetailRestaurantProvider extends ChangeNotifier {
   final String id;
 
   late DetailRestaurantResult _detailRestaurant;
-  late ResultState _state;
+  ResultState _state = ResultState.loading;
   String _message = '';
 
   DetailRestaurantProvider({required this.id, required this.service}) {
