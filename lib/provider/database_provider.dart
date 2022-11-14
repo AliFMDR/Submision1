@@ -1,60 +1,52 @@
-import 'package:projek2/db/database_helper.dart';
-import 'package:projek2/model/resto_list.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:io';
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:projek2/Apiresto.dart';
+import 'package:projek2/model/resto_detail.dart';
+import 'package:projek2/Apiresto.dart';
+import 'package:projek2/model/resto_detail.dart';
+import 'package:projek2/provider/list_restaurant.dart';
 
-enum ResultState { loading, noData, hasData, error }
+enum ResultState { loading, error, noData, hasData }
 
-class DatabaseProvider extends ChangeNotifier {
-  final DatabaseHelper databaseHelper;
+class DetailRestaurantProvider extends ChangeNotifier {
+  final Service service;
+  final String id;
 
-  DatabaseProvider({required this.databaseHelper}) {
-    _getBookmarks();
+  late DetailRestaurantResult _detailRestaurant;
+  ResultState _state = ResultState.loading;
+  String _message = '';
+
+  DetailRestaurantProvider({required this.id, required this.service}) {
+    getDetailRestaurant(id);
   }
 
-  ResultState _state = ResultState.loading;
+  String get message => _message;
+  DetailRestaurantResult get result => _detailRestaurant;
   ResultState get state => _state;
 
-  String _message = '';
-  String get message => _message;
-
-  List<Restaurant> _bookmarks = [];
-  List<Restaurant> get bookmarks => _bookmarks;
-
-  void _getBookmarks() async {
-    _bookmarks = await databaseHelper.getBookmarks();
-    if (_bookmarks.isNotEmpty) {
-      _state = ResultState.hasData;
-    } else {
-      _state = ResultState.noData;
-      _message = 'No Bookmark';
-    }
-    notifyListeners();
-  }
-
-  void addBookmark(Restaurant restaurant) async {
+  Future<dynamic> getDetailRestaurant(String id) async {
     try {
-      await databaseHelper.insertBookmark(restaurant);
-      _getBookmarks();
+      _state = ResultState.loading;
+      notifyListeners();
+      final detailRestaurant = await service.getDetailId(id);
+      if (detailRestaurant.error) {
+        _state = ResultState.noData;
+        notifyListeners();
+        return _message = 'Empty Data';
+      } else {
+        _state = ResultState.hasData;
+        notifyListeners();
+        return _detailRestaurant = detailRestaurant;
+      }
+    } on SocketException {
+      _state = ResultState.error;
+      notifyListeners();
+      return _message = "No internet connection";
     } catch (e) {
       _state = ResultState.error;
-      _message = 'Error: $e';
       notifyListeners();
-    }
-  }
-
-  Future<bool> isBookmarked(String id) async {
-    final bookmarkedRestaurant = await databaseHelper.getBookmarkByUrl(id);
-    return bookmarkedRestaurant.isNotEmpty;
-  }
-
-  void removeBookmark(String id) async {
-    try {
-      await databaseHelper.removeBookmark(id);
-      _getBookmarks();
-    } catch (e) {
-      _state = ResultState.error;
-      _message = 'Error: $e';
-      notifyListeners();
+      return _message = e.toString();
     }
   }
 }
